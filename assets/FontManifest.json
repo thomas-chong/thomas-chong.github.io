@@ -1,0 +1,27 @@
+[
+    {
+        "family": "Gilroy",
+        "fonts": [
+            {
+                "asset": "fonts/gilroy/Gilroy-Regular.ttf"
+            }
+        ]
+    },
+    {
+        "family": "Gilroy",
+        "fonts": [
+            {
+                "asset": "fonts/gilroy/Gilroy-Medium.ttf"
+            }
+        ]
+    },
+    {
+        "family": "Gilroy",
+        "fonts": [
+            {
+                "asset": "fonts/gilroy/Gilroy-Bold.ttf"
+            }
+        ]
+    }
+
+]
