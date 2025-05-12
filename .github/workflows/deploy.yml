@@ -1,0 +1,49 @@
+name: Deploy Next.js site to GitHub Pages
+
+on:
+  push:
+    branches: ["main"] # Or your default branch (e.g., master)
+  workflow_dispatch: # Allows manual triggering
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18" # Or your preferred Node.js version
+          cache: 'npm' # or 'yarn'
+
+      - name: Install Dependencies
+        run: npm install # or yarn install
+
+      - name: Build
+        run: npm run build # This will create the 'out' folder
+
+      - name: Add .nojekyll file
+        run: touch out/.nojekyll # Prevents GitHub Pages from running Jekyll
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out # The folder Next.js exports to
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
