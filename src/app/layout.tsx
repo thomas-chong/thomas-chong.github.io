@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Thomas Chong - Academic Page",
-  description: "Personal academic website of Thomas Chong, Researcher at Votee AI.",
+  description: "Personal academic website of Thomas Chong, AI Research Engineer at Beever AI.",
 };
 
 const navLinks = [

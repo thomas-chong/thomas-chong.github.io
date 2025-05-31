@@ -6,10 +6,10 @@ export default function HomePage() {
   const user = {
     name: "Thomas Chong",
     preferredName: "Thomas Chong (Cheuk Hei Chong)",
-    title: "Researcher at Votee AI",
+    title: "AI Research Engineer at Beever AI",
     avatarSrc: "/avatar.jpeg",
     avatarFallback: "TC",
-    bio: "I am a researcher at Votee AI, specializing in Natural Language Processing (NLP), Large Multimodal Models (LMMs), and low-resource language understanding. My work focuses on advancing the capabilities of AI in these areas, bridging the gap between theoretical understanding and practical applications in multilingual AI systems.",
+    bio: "I am an AI Research Engineer at Beever AI, specializing in Natural Language Processing (NLP), Large Multimodal Models (LMMs), and low-resource language understanding. My work focuses on advancing the capabilities of AI in these areas, bridging the gap between theoretical understanding and practical applications in multilingual AI systems.",
     researchDimensions: [
       {
         title: "Natural Language Processing (NLP)",
