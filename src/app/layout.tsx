@@ -19,10 +19,6 @@ export const metadata: Metadata = {
   description: "Personal academic website of Thomas Chong, AI Research Engineer at Beever AI.",
 };
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/publications", label: "Publications" },
-];
 
 export default function RootLayout({
   children,
@@ -40,15 +36,27 @@ export default function RootLayout({
             
             <NavigationMenu className="hidden md:flex">
               <NavigationMenuList>
-                {navLinks.map((link) => (
-                  <NavigationMenuItem key={link.href}>
-                    <Link href={link.href} legacyBehavior passHref>
-                      <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                        {link.label}
-                      </NavigationMenuLink>
-                    </Link>
-                  </NavigationMenuItem>
-                ))}
+                <NavigationMenuItem>
+                  <Link href="/" legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                      Home
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/publications" legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                      Publications
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/blog" legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                      Blog
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
 
@@ -62,16 +70,30 @@ export default function RootLayout({
                 </SheetTrigger>
                 <SheetContent side="right">
                   <nav className="flex flex-col space-y-4 mt-6">
-                    {navLinks.map((link) => (
-                      <SheetClose asChild key={link.href}>
-                        <Link
-                          href={link.href}
-                          className="text-lg font-medium hover:underline underline-offset-4"
-                        >
-                          {link.label}
-                        </Link>
-                      </SheetClose>
-                    ))}
+                    <SheetClose asChild>
+                      <Link
+                        href="/"
+                        className="text-lg font-medium hover:underline underline-offset-4"
+                      >
+                        Home
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link
+                        href="/publications"
+                        className="text-lg font-medium hover:underline underline-offset-4"
+                      >
+                        Publications
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link
+                        href="/blog"
+                        className="text-lg font-medium hover:underline underline-offset-4"
+                      >
+                        Blog
+                      </Link>
+                    </SheetClose>
                   </nav>
                 </SheetContent>
               </Sheet>
