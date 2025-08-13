@@ -3,6 +3,7 @@ title: 'Hello World'
 date: '2025-08-03'
 description: 'This is a sample post to demonstrate the new blog design.'
 category: 'Getting Started'
+author: 'Thomas Chong'
 ---
 
 This is my first blog post!
