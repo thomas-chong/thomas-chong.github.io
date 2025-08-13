@@ -6,8 +6,6 @@ category: 'Getting Started'
 author: 'Thomas Chong'
 ---
 
-# Supercharging AI Agents: A Practical Guide to Integrating LangExtract with the Google ADK
-
 Extracting structured data from unstructured text—like emails or reports—is a common challenge. **LangExtract** is an open-source Python library from Google that uses Large Language Models (LLMs) to accurately extract entities, relationships, and other structured information from raw text. It also provides traceability, so you can see exactly where each piece of data came from in the original document.
 
 Now, imagine giving this extraction power to an AI agent that can reason and act. The **Google Agent Development Kit (ADK)** lets you build such agents.

@@ -6,8 +6,6 @@ category: 'Getting Started'
 author: 'Thomas Chong'
 ---
 
-# Mastering AgentOps: A Deep Dive into Evaluating ADK Agents with Langfuse
-
 ### The Challenge of Production-Ready Agents
 
 The era of AI agents is upon us. Building a proof-of-concept agent that can chat or perform a simple task has become remarkably accessible. However, the journey from a clever prototype to a reliable, production-grade application is fraught with challenges. How do you ensure your agent behaves predictably? How do you measure its performance over time and prevent regressions when you update a prompt or a tool? Answering these questions requires moving beyond simple "vibe-testing" and adopting a more rigorous, engineering-focused discipline.
