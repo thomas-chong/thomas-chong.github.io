@@ -19,6 +19,7 @@ export function getSortedPostsData() {
     return {
       id,
       ...(matterResult.data as { date: string; title: string; description: string; category: string }),
+      author: (matterResult.data.author || 'Anonymous') as string,
     };
   });
 
@@ -46,7 +47,7 @@ export async function getPostData(id: string) {
   return {
     id,
     contentHtml,
-    ...(matterResult.data as { date: string; title: string }),
+    ...(matterResult.data as { date: string; title: string; author: string }),
   };
 }
 
