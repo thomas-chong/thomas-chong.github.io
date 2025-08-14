@@ -66,14 +66,17 @@ export default function HomePage() {
           {user.socialLinks.map((link) => (
             <li key={link.label} className="flex items-center gap-2">
               <link.icon className="w-4 h-4 flex-shrink-0" />
-              <Link href={link.href} target="_blank" rel="noopener noreferrer" className="hover:underline truncate">
+              <Link
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline truncate">
                 {link.label}
               </Link>
             </li>
           ))}
         </ul>
       </aside>
-
       <section className="w-full md:w-2/3 lg:w-3/4 space-y-8">
         <div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-1">{user.name}</h1>

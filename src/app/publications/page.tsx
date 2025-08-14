@@ -88,7 +88,11 @@ export default function PublicationsPage() {
                 </CardContent>
                 <CardFooter className="flex flex-wrap gap-2 p-0 pt-4 border-t border-muted mt-auto"> {/* Flex-wrap and gap for button responsiveness, removed default padding, added top padding and border, push to bottom */}
                   <Button asChild variant="outline" size="sm">
-                    <Link href={pub.pdfLink} target="_blank" rel="noopener noreferrer">
+                    <Link
+                      href={pub.pdfLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <BookText className="mr-2 h-4 w-4" /> arXiv
                     </Link>
                   </Button>
@@ -101,14 +105,22 @@ export default function PublicationsPage() {
                   )}
                   {pub.websiteLink !== "#" && (
                     <Button asChild variant="outline" size="sm">
-                      <Link href={pub.websiteLink} target="_blank" rel="noopener noreferrer">
+                      <Link
+                        href={pub.websiteLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <Globe className="mr-2 h-4 w-4" /> Website
                       </Link>
                     </Button>
                   )}
                   {pub.githubLink !== "#" && (
                     <Button asChild variant="outline" size="sm">
-                      <Link href={pub.githubLink} target="_blank" rel="noopener noreferrer">
+                      <Link
+                        href={pub.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <Github className="mr-2 h-4 w-4" /> GitHub
                       </Link>
                     </Button>
