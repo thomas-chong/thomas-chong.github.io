@@ -6,7 +6,13 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export default async function Post({ params }: { params: { id: string } }) {
+interface PostPageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default async function Post({ params }: PostPageProps) {
   const postData = await getPostData(params.id);
 
   return (

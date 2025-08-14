@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { BookText, Globe, Github } from "lucide-react";
 // Using Next/Image for optimized images is a good practice if images are local or need optimization.
 // For simplicity with external placeholders, a regular img tag is used here.
-// import Image from 'next/image'; 
+import Image from 'next/image';
 
 export default function PublicationsPage() {
   const publications = [
@@ -51,10 +51,12 @@ export default function PublicationsPage() {
             <div className="flex flex-col md:flex-row p-4"> {/* Added p-4 here */}
               {pub.imagePreviewUrl && (
                 <div className="md:w-1/3 shrink-0 mb-4 md:mb-0 md:mr-4"> {/* Added margin for spacing from text */}
-                  <img 
-                    src={pub.imagePreviewUrl} 
+                  <Image
+                    src={pub.imagePreviewUrl}
                     alt={`Preview for ${pub.title}`}
                     className="w-full h-auto max-h-48 md:h-full object-contain rounded-md" // Updated classes
+                    width={500}
+                    height={300}
                   />
                 </div>
               )}
