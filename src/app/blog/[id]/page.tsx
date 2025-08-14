@@ -6,15 +6,9 @@ export async function generateStaticParams() {
   return paths;
 }
 
-interface PostPageProps {
-  params: {
-    id: string;
-  };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
-
-export default async function Post({ params }: PostPageProps) {
-  const postData = await getPostData(params.id);
+export default async function Post({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const postData = await getPostData(id);
 
   return (
     <article className="container mx-auto py-8 px-4 md:px-6 prose prose-lg">
