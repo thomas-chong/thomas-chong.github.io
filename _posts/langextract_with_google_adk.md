@@ -237,8 +237,6 @@ Our agent will process this and return a clean, structured JSON output, along wi
 The extracted information is:
 *   **Company Name:** TechCorp, **Revenue:** $5.2 billion, **Fiscal Period:** second quarter of 2024
 *   **Company Name:** FutureGadgets, **Revenue:** $850 million, **Fiscal Period:** second quarter of 2024
-
-[Please click here to view the visualization](file:///Users/thomaschong/Repo/langextract-with-adk/visualizations/visualization_e7bf10470e794bf2a5db679325c7a9d1.html)
 ```
 
 ### Example 2: The Legal Tech Sidekick
@@ -272,7 +270,6 @@ The extracted information is:
 *   **Parties Involved:** Innovate Solutions Inc., Global Dynamics LLC
 *   **Effective Date:** 21st day of October, 2025
 
-[Please click here to view the visualization](file:///Users/thomaschong/Repo/langextract-with-adk/visualizations/visualization_fb1e9778363c4fd98eb804125cfe6bc2.html)
 ```
 
 ### Example 3: The Multilingual Social Media Monitor
@@ -303,7 +300,6 @@ The extracted information is:
     *   Tiramisu: **評價 (Evaluation):** 中性 (Neutral) - 「普通咗啲 (a bit ordinary)」
 *   **服務 (Service):** 唔錯 (Not bad) - 「服務態度唔錯 (service attitude is not bad)」
 
-[Please click here to view the visualization](file:///Users/thomaschong/Repo/langextract-with-adk/visualizations/visualization_3c0550bc7a4c41228532096e065bd33a.html)
 ```
 
 ## Interactive Demo with the ADK Web UI
