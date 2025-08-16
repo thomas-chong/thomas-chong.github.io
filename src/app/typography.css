@@ -43,5 +43,9 @@
 }
 
 .prose pre {
-  @apply bg-muted p-4 rounded-md overflow-x-auto;
+  @apply bg-muted p-4 rounded-md overflow-x-auto mb-8 mt-4;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-inherit;
 }

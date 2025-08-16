@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRightIcon } from "lucide-react";
 
 interface BlogCardProps {
   slug: string;
@@ -8,29 +9,47 @@ interface BlogCardProps {
   excerpt: string;
   author: string;
   date: string;
+  tags: string[];
+  image: string;
 }
 
-export function BlogCard({ slug, title, excerpt, author, date }: BlogCardProps) {
+export function BlogCard({ slug, title, excerpt, author, date, tags, image }: BlogCardProps) {
   return (
-    <Link href={`/blog/${slug}`}>
-      <Card className="hover:shadow-lg transition-shadow duration-300 cursor-pointer">
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground">{excerpt}</p>
-          <div className="flex items-center pt-4">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/avatar.jpeg" alt="Author" />
-              <AvatarFallback>{author.charAt(0)}</AvatarFallback>
-            </Avatar>
-            <div className="ml-4">
-              <p className="text-sm font-medium leading-none">{author}</p>
-              <p className="text-sm text-muted-foreground">{date}</p>
-            </div>
+    <div className="grid md:grid-cols-2 gap-8 items-center">
+      <div className="space-y-4">
+        <div className="flex items-center gap-4">
+          {tags.map((tag) => (
+            <Badge key={tag} variant="outline">
+              {tag}
+            </Badge>
+          ))}
+        </div>
+        <h2 className="text-3xl font-bold tracking-tight">
+          <Link href={`/blog/${slug}`}>{title}</Link>
+        </h2>
+        <p className="text-muted-foreground">{excerpt}</p>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <p className="text-sm font-medium">{author}</p>
+            <span className="text-sm text-muted-foreground">•</span>
+            <p className="text-sm text-muted-foreground">{date}</p>
           </div>
-        </CardContent>
-      </Card>
-    </Link>
+        </div>
+        <Link
+          href={`/blog/${slug}`}
+          className="inline-flex items-center gap-2 font-medium text-primary hover:underline"
+        >
+          Read more
+          <ArrowRightIcon className="w-4 h-4" />
+        </Link>
+      </div>
+      <Image
+        src={image}
+        alt={title}
+        width={600}
+        height={400}
+        className="rounded-lg object-cover"
+      />
+    </div>
   );
 }

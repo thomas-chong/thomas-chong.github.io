@@ -1,5 +1,6 @@
 @import './typography.css';
 @import 'katex/dist/katex.min.css';
+@import 'highlight.js/styles/github-dark.css';
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -120,5 +121,37 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+   text-decoration: none;
+  }
+  .prose a h1, .prose a h2, .prose a h3, .prose a h4, .prose a h5, .prose a h6 {
+   text-decoration: none !important;
+  }
+  .prose h1 a, .prose h2 a, .prose h3 a, .prose h4 a, .prose h5 a, .prose h6 a {
+   text-decoration: none !important;
+  }
+  .no-underline {
+     text-decoration: none !important;
+  }
+  
+  /* Code block styling overrides */
+  .prose pre {
+    background: var(--muted) !important;
+    border: 1px solid var(--border);
+  }
+  
+  .prose pre code {
+    background: transparent !important;
+    color: var(--foreground) !important;
+  }
+  
+  /* Syntax highlighting overrides for better theme integration */
+  .hljs {
+    background: var(--muted) !important;
+    color: var(--foreground) !important;
   }
 }

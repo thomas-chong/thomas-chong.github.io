@@ -2,7 +2,8 @@
 title: 'Supercharging AI Agents: A Practical Guide to Integrating LangExtract with the Google ADK'
 date: '2025-08-13'
 description: 'This is a sample post to demonstrate the new blog design.'
-category: 'Getting Started'
+tags: ['AI', 'ADK', 'LangExtract']
+image: '/images/blog/langextract_with_google_adk.png'
 author: 'Thomas Chong'
 ---
 

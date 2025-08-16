@@ -2,7 +2,8 @@
 title: 'Mastering AgentOps: A Deep Dive into Evaluating ADK Agents with Langfuse'
 date: '2025-08-03'
 description: 'This is a sample post to demonstrate the new blog design.'
-category: 'Getting Started'
+tags: ['AgentOps', 'ADK', 'Langfuse']
+image: '/images/blog/adk.png'
 author: 'Thomas Chong'
 ---
 
