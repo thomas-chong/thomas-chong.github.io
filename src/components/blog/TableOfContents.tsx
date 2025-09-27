@@ -35,6 +35,17 @@ export default function TableOfContents({ toc }: TableOfContentsProps) {
     };
   }, [toc]);
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, slug: string) => {
+    e.preventDefault();
+    const element = document.getElementById(slug);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   const getPaddingClass = (level: number) => {
     const padding = (level - 1) * 4;
     switch (padding) {
@@ -56,7 +67,8 @@ export default function TableOfContents({ toc }: TableOfContentsProps) {
             <li key={item.slug} className={getPaddingClass(item.level)}>
               <a
                 href={`#${item.slug}`}
-                className={`block py-1 text-sm transition-colors hover:text-primary ${
+                onClick={(e) => handleClick(e, item.slug)}
+                className={`block py-1 text-sm transition-colors hover:text-primary cursor-pointer ${
                   activeId === item.slug
                     ? 'font-bold text-primary'
                     : 'text-foreground'

@@ -21,8 +21,7 @@ First, let's create a clean, organized project structure.
 
 We'll follow the standard ADK project structure to ensure our agent is discoverable and easy to maintain.
 
-```
-.
+```txt:structure.txt
 ├── langextract_agent/
 │   ├── __init__.py      # Makes the agent discoverable by ADK
 │   ├── agent.py         # Contains the core agent definition
@@ -44,7 +43,7 @@ We'll follow the standard ADK project structure to ensure our agent is discovera
 
 With the structure in place, let's install the necessary libraries. Create a `requirements.txt` file with the following content:
 
-```
+```txt:requirements.txt
 google-adk
 langextract
 python-dotenv
@@ -53,7 +52,7 @@ google-generativeai
 
 Then, run the following command in your terminal:
 
-```bash
+```bash:install.sh
 pip install -r requirements.txt
 ```
 
@@ -61,7 +60,7 @@ pip install -r requirements.txt
 
 Create a file named `.env` inside the `langextract_agent` directory. This file will hold your Google API key.
 
-```
+```bash:.env
 GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY_HERE
 ```
 
@@ -81,7 +80,7 @@ The key to building a powerful and flexible extraction tool is to use **few-shot
 
 Here is the code for `langextract_agent/tool.py`:
 
-```python
+```python:langextract_agent/tool.py
 import os
 import pathlib
 import textwrap
@@ -181,7 +180,7 @@ With our tool in place, let's create the agent that will use it. In `langextract
 
 ### The Agent Definition (`agent.py`)
 
-```python
+```python:langextract_agent/agent.py
 from dotenv import load_dotenv
 from google.adk.agents import Agent
 from .tool import document_extractor_tool
@@ -221,7 +220,7 @@ Imagine you're a financial analyst who needs to quickly extract key figures from
 **Image Suggestion:** A screenshot of the terminal output for the financial example, showing the extracted data and the link to the visualization.
 ***
 
-```python
+```python:main.py (1/3)
 # In main.py
 article = """
 TechCorp announced its results for the second quarter of 2024.
@@ -233,7 +232,7 @@ user_query = "Extract all company names, their revenues, and the fiscal period m
 
 Our agent will process this and return a clean, structured JSON output, along with a link to the visualization:
 
-```
+```txt:output.txt
 --- Running Financial Analysis ---
 The extracted information is:
 *   **Company Name:** TechCorp, **Revenue:** $5.2 billion, **Fiscal Period:** second quarter of 2024
@@ -248,7 +247,7 @@ Now, let's try a more complex legal document.
 **Image Suggestion:** A screenshot of the terminal output for the legal example, showing the extracted data and the link to the visualization.
 ***
 
-```python
+```python:main.py (2/3)
 # In main.py
 legal_text = """
 This Service Agreement is made and entered into as of this 21st day of October, 2025,
@@ -265,7 +264,7 @@ legal_query = "Extract the parties involved, their addresses, the effective date
 
 The agent can easily parse this and extract the nested information:
 
-```
+```txt:output.txt
 --- Running Complex Legal Document Extraction ---
 The extracted information is:
 *   **Parties Involved:** Innovate Solutions Inc., Global Dynamics LLC
@@ -281,7 +280,7 @@ This is where LangExtract truly shines. Let's give our agent a social media post
 **Image Suggestion:** A split-screen image showing the terminal output for both the Traditional Chinese and Cantonese examples side-by-side, each with their visualization links.
 ***
 
-```python
+```python:main.py (3/3)
 # In main.py
 social_post_canto = """
 啱啱買咗部新嘅「星塵X1」手機，個相機影相好掂，夜景模式堅揪！但係電量去得有啲快，
@@ -292,7 +291,7 @@ social_query_canto = "Extract the product name, positive feedback points, and ne
 
 Even with the informal language, the agent can extract the key feedback points:
 
-```
+```txt:output.txt
 --- Running Social Listening (Traditional Chinese) ---
 The extracted information is:
 *   **餐廳名稱 (Restaurant Name):** 味之戀人
@@ -311,7 +310,7 @@ While running the script from the command line is great for testing, the ADK Web
 
 Run the following command in your terminal:
 
-```bash
+```bash:run_dev.sh
 adk web
 ```
 

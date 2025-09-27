@@ -74,27 +74,27 @@ Let's put theory into practice by building an agent for a realistic use case. Ou
 First, prepare your development environment and project structure.
 
 1.  **Create and activate a virtual environment:**
-    ```bash
+    ```bash:.env
     python3 -m venv .venv
     source .venv/bin/activate
     ```
     *(On Windows, use `.venv\Scripts\activate`)*
 
 2.  **Install dependencies:** Create a `requirements.txt` file with the following content:
-    ```
+    ```bash:requirements.txt
     google-adk
     langfuse
     python-dotenv
     google-generativeai
     ```
     Then, install them:
-    ```bash
+    ```bash:requirements.txt
     pip install -r requirements.txt
     ```
     This installs ADK, Langfuse, a helper for environment variables, and the Google Gemini SDK.
 
 3.  **Set up the project structure:** Create the following directories and files:
-    ```
+    ```bash:structure.sh
     adk_langfuse_eval/
     ├── support_agent/
     │   ├── __init__.py
@@ -106,7 +106,7 @@ First, prepare your development environment and project structure.
     > **PHOTO:** A screenshot of the final project directory structure as shown in a VS Code sidebar or similar tree view should be placed here.
 
 4.  **Configure environment variables:** Create a file named `.env` inside the `support_agent/` directory and add your credentials. You can get these from Google AI Studio and the Langfuse project settings page.
-    ```
+    ```bash:.env
     GOOGLE_API_KEY="your_google_api_key_here"
     LANGFUSE_PUBLIC_KEY="pk-lf-..."
     LANGFUSE_SECRET_KEY="sk-lf-..."
@@ -117,7 +117,7 @@ First, prepare your development environment and project structure.
 
 Now, let's write the code for our agent. Open `support_agent/agent.py` and add the following:
 
-```python
+```python:support_agent/agent.py
 # support_agent/agent.py
 
 from google.adk.agents import LlmAgent
@@ -171,7 +171,7 @@ This code defines a realistic `lookup_order_status` tool and an `LlmAgent` with 
 
 Finally, make the agent discoverable by ADK. In `support_agent/__init__.py`, add the following line. This makes the directory a Python package and exposes the `root_agent` instance.
 
-```python
+```python:support_agent/__init__.py
 # support_agent/__init__.py
 from .agent import root_agent
 ```
@@ -189,7 +189,7 @@ Writing a valid `.evalset.json` file by hand is a complex and error-prone task. 
 Here's how to generate the evalset:
 
 1.  From your terminal, in the `adk_langfuse_eval` directory, run the ADK web server:
-    ```bash
+    ```bash:run_dev.sh
     adk web ./support_agent
     ```
 
@@ -219,7 +219,7 @@ Next, we need to define the pass/fail criteria for our evaluation. Create a file
 
 Add the following content to `support_agent/test_config.json`:
 
-```json
+```json:test_config.json
 {
   "criteria": {
     "tool_trajectory_avg_score": 0.9,
@@ -249,7 +249,7 @@ This is the heart of the tutorial. We will now write the `run_evaluation.py` scr
 
 Open the `run_evaluation.py` file at the root of your project and add the following code. The comments explain each step in detail.
 
-```python
+```python:run_evaluation.py
 # run_evaluation.py
 
 import asyncio
@@ -366,7 +366,7 @@ This script is the centerpiece of our workflow. It uses `AgentEvaluator.evaluate
 Now, let's execute our script and see the results in the Langfuse dashboard.
 
 1.  **Run the script:** From your terminal in the project's root directory, run:
-    ```bash
+    ```bash:run_evaluation.sh
     python run_evaluation.py
     ```
     You should see output indicating that the evaluation is running and that scores are being logged to Langfuse.

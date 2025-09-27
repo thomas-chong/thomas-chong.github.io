@@ -34,11 +34,11 @@ export default function PublicationsPage() {
       journal: "ACL 2025 CoNLL",
       year: "2025",
       abstract: "A benchmark for evaluating Cantonese language understanding and cultural comprehension in LLMs.",
-      pdfLink: "https://arxiv.org/abs/2503.12440", 
+      pdfLink: "https://arxiv.org/abs/2503.12440",
       doiLink: "#",
       websiteLink: "#",
       githubLink: "https://github.com/hon9kon9ize/hkeval2025",
-      imagePreviewUrl: "images/publications/hkcanto_eval.png", // Placeholder image
+      imagePreviewUrl: "/images/publications/hkcanto_eval.png", // Placeholder image
     },
   ];
 
@@ -54,7 +54,7 @@ export default function PublicationsPage() {
                   <Image
                     src={pub.imagePreviewUrl}
                     alt={`Preview for ${pub.title}`}
-                    className="w-full h-auto max-h-48 md:h-full object-contain rounded-md" // Updated classes
+                    className="w-full h-48 object-contain rounded-md" // Updated classes
                     width={500}
                     height={300}
                   />
@@ -69,10 +69,10 @@ export default function PublicationsPage() {
                         const hasAsterisk = author.includes("*");
                         const nameForComparison = author.replace("*", ""); // Name without asterisk for comparison
                         const isMyName = nameForComparison === "Thomas Chong" || nameForComparison === "Cheuk Hei Chong";
-                        
+
                         return (
-                          <Badge 
-                            key={authorIndex} 
+                          <Badge
+                            key={authorIndex}
                             variant={isMyName ? "default" : "secondary"}
                             className={`text-sm ${hasAsterisk ? "underline" : ""}`}
                           >

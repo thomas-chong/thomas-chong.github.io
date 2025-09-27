@@ -142,16 +142,48 @@
   .prose pre {
     background: var(--muted) !important;
     border: 1px solid var(--border);
+    font-weight: normal !important;
+    font-size: 0.75rem !important;
   }
   
   .prose pre code {
     background: transparent !important;
     color: var(--foreground) !important;
+    font-weight: normal !important;
+    font-size: 0.75rem !important;
   }
   
   /* Syntax highlighting overrides for better theme integration */
   .hljs {
     background: var(--muted) !important;
     color: var(--foreground) !important;
+    font-weight: normal !important;
+  }
+  
+  /* Override any bold styling in code blocks */
+  .prose code,
+  .prose pre code,
+  .hljs,
+  .hljs * {
+    font-weight: normal !important;
+    font-size: 0.875rem !important;
+  }
+  
+  /* CodeBlock component styling */
+  .not-prose {
+    font-weight: normal !important;
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+  }
+  
+  .not-prose code,
+  .not-prose pre,
+  .not-prose * {
+    font-weight: normal !important;
+    font-size: 0.875rem !important;
+  }
+
+  .shiki-container pre {
+    background-color: transparent !important;
   }
 }

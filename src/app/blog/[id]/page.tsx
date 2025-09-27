@@ -2,6 +2,7 @@ import { getPostData, getAllPostIds } from '@/lib/posts';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import TableOfContents from '@/components/blog/TableOfContents';
 import AnimatedDiv from '@/components/blog/AnimatedDiv';
+import PostContent from '@/components/blog/PostContent';
 
 export async function generateStaticParams() {
   const paths = getAllPostIds();
@@ -32,7 +33,7 @@ export default async function Post({ params }: { params: Promise<{ id: string }>
                 </div>
               </div>
             </div>
-            <div className="prose prose-lg" dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+            <PostContent content={postData.content} />
           </div>
           <div className="hidden md:block md:col-span-1">
             <TableOfContents toc={postData.toc} />
