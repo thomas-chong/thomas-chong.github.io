@@ -4,8 +4,7 @@ date: '2025-11-09'
 description: "A comprehensive guide to Google ADK's Visual Agent Builder - learn how to create complex multi-agent systems through an intuitive visual interface without writing YAML by hand."
 tags: ["Google ADK", "AI Agents", "Multi-Agent Systems", "Visual Agent Builder"]
 author: "Thomas Chong"
-banner: "/images/blog/blog-google-adk-visual-agent-builder-2025-11-09/06-canvas-generated-hierarchy.png"
-image: "/images/blog/blog-google-adk-visual-agent-builder-2025-11-09/06-canvas-generated-hierarchy.png"
+banner: "/images/blog/blog-google-adk-visual-agent-builder-2025-11-09/blog-banner.png"
 ---
 
 If you've ever built multi-agent systems, you know the pain: juggling YAML files, mentally tracking agent hierarchies, debugging configuration errors, and constantly referencing documentation to get the syntax right. Google's Agent Development Kit (ADK) just changed that game.
@@ -397,7 +396,7 @@ The Visual Builder doesn't replace code-based agent development - it accelerates
 
 The complete research agent from this tutorial is available as open-source YAML configurations:
 
-📁 **GitHub Repository**: [google-adk-visual-agent-builder-demo](https://github.com/cch-thomas/google-adk-visual-agent-builder-demo) *(coming soon)*
+📁 **GitHub Repository**: [google-adk-visual-agent-builder-demo](https://github.com/thomas-chong/google-adk-visual-agent-builder-demo) - Complete code from this tutorial
 
 The repo includes:
 - All 4 YAML configuration files (root agent + loop agent + 2 sub-agents)
@@ -437,7 +436,7 @@ Drop a comment or reach out - I'm always excited to discuss agent architectures 
 - [Multi-Agent Composition Guide](https://github.com/google/adk-python/wiki/Multi-Agent-Composition)
 
 ### Tutorial Code
-- [Research Agent YAML Configurations](https://github.com/cch-thomas/google-adk-visual-agent-builder-demo) *(coming soon)* - Complete code from this tutorial
+- [Research Agent YAML Configurations](https://github.com/thomas-chong/google-adk-visual-agent-builder-demo) - Complete code from this tutorial
 
 ### Community
 - [ADK GitHub Discussions](https://github.com/google/adk-python/discussions)

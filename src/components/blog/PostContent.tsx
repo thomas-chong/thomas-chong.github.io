@@ -21,6 +21,7 @@ import {
   CodeBlockFilename,
   type BundledLanguage,
 } from "@/components/ui/shadcn-io/code-block"
+import { ImageZoom } from "@/components/ui/shadcn-io/image-zoom"
 import MermaidDiagram from './MermaidDiagram';
 
 let highlighter: Highlighter | undefined;
@@ -242,14 +243,16 @@ const PostContent = ({ content }: { content: string }) => {
           
           return (
             <div className="my-6 flex justify-center">
-              <Image
-                src={imageSrc}
-                alt={alt || ''}
-                width={1200}
-                height={600}
-                className="rounded-lg object-contain max-w-full h-auto"
-                title={title}
-              />
+              <ImageZoom>
+                <Image
+                  src={imageSrc}
+                  alt={alt || ''}
+                  width={1200}
+                  height={600}
+                  className="rounded-lg object-contain max-w-full h-auto"
+                  title={title}
+                />
+              </ImageZoom>
             </div>
           );
         },
