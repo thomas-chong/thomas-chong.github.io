@@ -396,7 +396,9 @@ The Visual Builder doesn't replace code-based agent development - it accelerates
 
 The complete research agent from this tutorial is available as open-source YAML configurations:
 
-📁 **GitHub Repository**: [google-adk-visual-agent-builder-demo](https://github.com/thomas-chong/google-adk-visual-agent-builder-demo) - Complete code from this tutorial
+📁 **GitHub Repository**: [google-adk-visual-agent-builder-demo](https://github.com/thomas-chong/google-adk-visual-agent-builder-demo)
+
+![GitHub Repository](images/blog/blog-google-adk-visual-agent-builder-2025-11-09/10-github-repo-screenshot.png)
 
 The repo includes:
 - All 4 YAML configuration files (root agent + loop agent + 2 sub-agents)
