@@ -21,7 +21,6 @@ import {
   CodeBlockFilename,
   type BundledLanguage,
 } from "@/components/ui/shadcn-io/code-block"
-import { ImageZoom } from "@/components/ui/shadcn-io/image-zoom"
 import MermaidDiagram from './MermaidDiagram';
 
 let highlighter: Highlighter | undefined;
@@ -96,36 +95,69 @@ const rehypeFilenameToPre = () => {
 // Unwrap images from paragraphs to prevent invalid HTML nesting (<div> inside <p>)
 const rehypeUnwrapImages = () => {
   return (tree: HastRoot) => {
-    const nodesToReplace: Array<{ parent: Element; index: number; replacement: Element }> = [];
+    const nodesToReplace: Array<{ parent: Element; index: number; replacements: Element[] }> = [];
     
     visit(tree, 'element', (node, index, parent) => {
       if (node.tagName === 'p' && parent && parent.type === 'element' && typeof index === 'number') {
-        // Check if paragraph only contains an image (and maybe whitespace)
         const children = node.children || [];
-        const nonWhitespaceChildren = children.filter(child => {
-          if (child.type === 'text') {
-            return typeof child.value === 'string' && child.value.trim() !== '';
-          }
-          return child.type === 'element' && child.tagName === 'img';
-        });
         
-        // If paragraph only contains a single image, mark it for replacement
-        if (nonWhitespaceChildren.length === 1 && nonWhitespaceChildren[0].type === 'element' && nonWhitespaceChildren[0].tagName === 'img') {
-          const replacement = nonWhitespaceChildren[0] as Element;
-          nodesToReplace.push({
-            parent: parent as Element,
-            index,
-            replacement
+        // Check if paragraph contains any images
+        const hasImage = children.some(child => 
+          child.type === 'element' && child.tagName === 'img'
+        );
+        
+        if (hasImage) {
+          // Split the paragraph into segments: text nodes and image nodes
+          const segments: Element[] = [];
+          let currentTextNodes: typeof children = [];
+          
+          children.forEach(child => {
+            if (child.type === 'element' && child.tagName === 'img') {
+              // If we have accumulated text, wrap it in a paragraph
+              if (currentTextNodes.length > 0 && currentTextNodes.some(n => n.type === 'text' && n.value.trim() !== '')) {
+                segments.push({
+                  type: 'element',
+                  tagName: 'p',
+                  properties: {},
+                  children: currentTextNodes
+                });
+                currentTextNodes = [];
+              }
+              // Add the image as a standalone element
+              segments.push(child as Element);
+            } else {
+              // Accumulate text and inline elements
+              currentTextNodes.push(child);
+            }
           });
+          
+          // Don't forget remaining text nodes
+          if (currentTextNodes.length > 0 && currentTextNodes.some(n => n.type === 'text' && n.value.trim() !== '')) {
+            segments.push({
+              type: 'element',
+              tagName: 'p',
+              properties: {},
+              children: currentTextNodes
+            });
+          }
+          
+          // Only replace if we actually split something
+          if (segments.length > 0) {
+            nodesToReplace.push({
+              parent: parent as Element,
+              index,
+              replacements: segments
+            });
+          }
         }
       }
     });
     
     // Replace nodes in reverse order to maintain correct indices
-    // Process from end to start to avoid index shifting issues
-    nodesToReplace.reverse().forEach(({ parent, index, replacement }) => {
+    nodesToReplace.reverse().forEach(({ parent, index, replacements }) => {
       if (parent.children && parent.children[index]) {
-        parent.children[index] = replacement;
+        // Replace the single paragraph with multiple elements
+        parent.children.splice(index, 1, ...replacements);
       }
     });
   };
@@ -232,6 +264,75 @@ const PostContent = ({ content }: { content: string }) => {
           );
         },
         p: (props: { children: React.ReactNode }) => {
+          // Check if paragraph contains any div-rendering components
+          // We need to check for wrapped images (ImageZoom renders a div)
+          const children = React.Children.toArray(props.children);
+          
+          // Check if any child is an element with an img tag or ImageZoom
+          const hasBlockLevelContent = children.some(child => {
+            if (!React.isValidElement(child)) return false;
+            
+            // Check if it's our custom img component (which renders ImageZoom)
+            // The component props will have src, alt, title for images
+            const childProps = child.props as { src?: string; alt?: string };
+            if (childProps && childProps.src !== undefined) {
+              return true;
+            }
+            
+            // Check the displayName or component name
+            const childType = child.type as { displayName?: string; name?: string };
+            if (childType && (childType.displayName === 'ImageZoom' || childType.name === 'ImageZoom')) {
+              return true;
+            }
+            
+            return false;
+          });
+          
+          if (hasBlockLevelContent) {
+            // Split children into text and image segments
+            const segments: React.ReactNode[] = [];
+            let textSegment: React.ReactNode[] = [];
+            
+            children.forEach((child, index) => {
+              const isImage = React.isValidElement(child) && (() => {
+                const childProps = child.props as { src?: string };
+                return childProps && childProps.src !== undefined;
+              })();
+              
+              if (isImage) {
+                // If we have accumulated text, wrap it in a paragraph
+                if (textSegment.length > 0) {
+                  const hasText = textSegment.some(node => {
+                    if (typeof node === 'string') return node.trim().length > 0;
+                    return true;
+                  });
+                  if (hasText) {
+                    segments.push(<p key={`text-${index}`}>{textSegment}</p>);
+                  }
+                  textSegment = [];
+                }
+                // Add the image directly (not wrapped in p)
+                segments.push(<React.Fragment key={`img-${index}`}>{child}</React.Fragment>);
+              } else {
+                // Accumulate text and inline elements
+                textSegment.push(child);
+              }
+            });
+            
+            // Don't forget remaining text
+            if (textSegment.length > 0) {
+              const hasText = textSegment.some(node => {
+                if (typeof node === 'string') return node.trim().length > 0;
+                return true;
+              });
+              if (hasText) {
+                segments.push(<p key="text-last">{textSegment}</p>);
+              }
+            }
+            
+            return <>{segments}</>;
+          }
+          
           return <p {...props} />;
         },
         img: (props: { src?: string; alt?: string; title?: string }) => {
@@ -241,19 +342,17 @@ const PostContent = ({ content }: { content: string }) => {
           // Convert relative paths to absolute paths
           const imageSrc = src.startsWith('/') ? src : `/${src}`;
           
+          // Render image without ImageZoom wrapper to avoid hydration errors
+          // The ImageZoom component renders divs which cannot be nested in <p> tags
           return (
-            <div className="my-6 flex justify-center">
-              <ImageZoom>
-                <Image
-                  src={imageSrc}
-                  alt={alt || ''}
-                  width={1200}
-                  height={600}
-                  className="rounded-lg object-contain max-w-full h-auto"
-                  title={title}
-                />
-              </ImageZoom>
-            </div>
+            <Image
+              src={imageSrc}
+              alt={alt || ''}
+              width={1200}
+              height={600}
+              className="rounded-lg object-contain max-w-full h-auto my-6"
+              title={title}
+            />
           );
         },
       },
