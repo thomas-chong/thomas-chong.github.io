@@ -393,7 +393,29 @@ Instead of wrestling with YAML syntax, manually configuring each agent, and debu
 
 The Visual Builder doesn't replace code-based agent development - it accelerates it. Use the AI Assistant to prototype architectures, the visual canvas to understand complex systems, and the testing interface to validate behavior. Then export the YAML for production deployment.
 
-Have you built anything with the Visual Agent Builder? I'd love to hear about your use cases and architectures. Drop a comment or reach out on Twitter/LinkedIn.
+### Try It Yourself
+
+The complete research agent from this tutorial is available as open-source YAML configurations:
+
+📁 **GitHub Repository**: [google-adk-visual-agent-builder-demo](https://github.com/cch-thomas/google-adk-visual-agent-builder-demo) *(coming soon)*
+
+The repo includes:
+- All 4 YAML configuration files (root agent + loop agent + 2 sub-agents)
+- Setup instructions for running the research agent locally
+- Example queries and expected outputs
+- Customization guide for adapting to your own use cases
+
+Clone it, modify it, and build your own multi-agent systems!
+
+---
+
+Have you built anything with the Visual Agent Builder? I'd love to hear about your use cases and architectures.
+
+**Connect with me**:
+- LinkedIn: [linkedin.com/in/chongcht](https://www.linkedin.com/in/chongcht/)
+- X/Twitter: [@cch_thomas](https://x.com/cch_thomas)
+
+Drop a comment or reach out - I'm always excited to discuss agent architectures and AI engineering!
 
 ---
 
@@ -413,6 +435,9 @@ Have you built anything with the Visual Agent Builder? I'd love to hear about yo
 - [Agent Builder Assistant System Prompt](https://github.com/google/adk-python/blob/main/contributing/samples/adk_agent_builder_assistant/instruction_embedded.template)
 - [ADK Development Web UI Documentation](https://github.com/google/adk-python/wiki/Development-Web-UI)
 - [Multi-Agent Composition Guide](https://github.com/google/adk-python/wiki/Multi-Agent-Composition)
+
+### Tutorial Code
+- [Research Agent YAML Configurations](https://github.com/cch-thomas/google-adk-visual-agent-builder-demo) *(coming soon)* - Complete code from this tutorial
 
 ### Community
 - [ADK GitHub Discussions](https://github.com/google/adk-python/discussions)
