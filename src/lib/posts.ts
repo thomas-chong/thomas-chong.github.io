@@ -28,9 +28,10 @@ export function getSortedPostsData() {
         title: string;
         description: string;
         tags: string[];
-        image: string;
+        image?: string;
       }),
       author: (matterResult.data.author || 'Anonymous') as string,
+      image: ((matterResult.data.image || matterResult.data.banner) as string) || undefined,
     };
   });
 
@@ -104,7 +105,7 @@ export async function getPostData(id: string) {
     contentHtml,
     content: matterResult.content,
     toc,
-    ...(matterResult.data as { date: string; title: string; author: string }),
+    ...(matterResult.data as { date: string; title: string; author: string; banner?: string }),
   };
 }
 

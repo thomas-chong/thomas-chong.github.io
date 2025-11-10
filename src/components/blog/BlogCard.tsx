@@ -10,12 +10,12 @@ interface BlogCardProps {
   author: string;
   date: string;
   tags: string[];
-  image: string;
+  image?: string;
 }
 
 export function BlogCard({ slug, title, excerpt, author, date, tags, image }: BlogCardProps) {
   return (
-    <div className="grid md:grid-cols-2 gap-8 items-center">
+    <div className={`grid gap-8 ${image ? 'md:grid-cols-2' : ''} items-center`}>
       <div className="space-y-4">
         <div className="flex items-center gap-4">
           {tags.map((tag) => (
@@ -43,13 +43,15 @@ export function BlogCard({ slug, title, excerpt, author, date, tags, image }: Bl
           <ArrowRightIcon className="w-4 h-4" />
         </Link>
       </div>
-      <Image
-        src={image}
-        alt={title}
-        width={600}
-        height={400}
-        className="rounded-lg object-cover"
-      />
+      {image && image.trim() && (
+        <Image
+          src={image}
+          alt={title}
+          width={600}
+          height={400}
+          className="rounded-lg object-cover"
+        />
+      )}
     </div>
   );
 }

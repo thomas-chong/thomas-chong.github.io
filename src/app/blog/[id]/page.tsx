@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import TableOfContents from '@/components/blog/TableOfContents';
 import AnimatedDiv from '@/components/blog/AnimatedDiv';
 import PostContent from '@/components/blog/PostContent';
+import Image from 'next/image';
 
 export async function generateStaticParams() {
   const paths = getAllPostIds();
@@ -16,10 +17,22 @@ export default async function Post({ params }: { params: Promise<{ id: string }>
   return (
     <AnimatedDiv>
       <article className="container mx-auto py-8 px-4 md:px-6">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-3">
+            {postData.banner && (
+              <div className="mb-8 -mx-4 md:-mx-6">
+                <Image
+                  src={postData.banner}
+                  alt={postData.title}
+                  width={1200}
+                  height={600}
+                  className="w-full h-auto rounded-lg object-cover"
+                  priority
+                />
+              </div>
+            )}
             <div className="mb-8">
-              <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-4" style={{ textDecoration: 'none' }}>
+              <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6" style={{ textDecoration: 'none' }}>
                 {postData.title}
               </h1>
               <div className="flex items-center">

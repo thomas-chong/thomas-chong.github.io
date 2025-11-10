@@ -1,12 +1,13 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeReact from 'rehype-react';
 import rehypeSlug from 'rehype-slug';
 import { visit } from 'unist-util-visit';
-import type { Root as HastRoot } from 'hast';
+import type { Root as HastRoot, Element } from 'hast';
 import type { Root as MdastRoot, Code as MdastCode } from 'mdast';
 import { getHighlighter, type Highlighter } from 'shiki';
 
@@ -20,6 +21,7 @@ import {
   CodeBlockFilename,
   type BundledLanguage,
 } from "@/components/ui/shadcn-io/code-block"
+import MermaidDiagram from './MermaidDiagram';
 
 let highlighter: Highlighter | undefined;
 const getShikiHighlighter = async () => {
@@ -46,16 +48,22 @@ const ClientSyntaxHighlighter = ({ code, lang }: { code: string, lang: BundledLa
             dark: 'github-dark',
           }
         });
-        setHtml(highlightedCode);
+        // Extract only the inner content, removing the outer pre/code wrapper
+        // Shiki returns <pre><code>...</code></pre>, but we only need the inner content
+        // Use regex to extract content between <code> tags
+        // Using [\s\S] instead of . with s flag for ES2017 compatibility
+        const codeMatch = highlightedCode.match(/<code[^>]*>([\s\S]*?)<\/code>/);
+        const innerHtml = codeMatch ? codeMatch[1] : highlightedCode.replace(/<pre[^>]*>|<\/pre>/g, '').replace(/<code[^>]*>|<\/code>/g, '');
+        setHtml(innerHtml);
       } catch (error) {
         console.error('Shiki initialization error:', error);
-        setHtml(`<pre><code>${code.replace(/</g, '<').replace(/>/g, '>')}</code></pre>`);
+        setHtml(code.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
       }
     };
     highlight();
   }, [code, lang]);
 
-  return <div dangerouslySetInnerHTML={{ __html: html }} className="shiki-container" />;
+  return <code className="shiki-container" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 
@@ -79,6 +87,44 @@ const rehypeFilenameToPre = () => {
           parent.properties = parent.properties || {};
           parent.properties['data-meta'] = node.data.meta as string;
         }
+      }
+    });
+  };
+};
+
+// Unwrap images from paragraphs to prevent invalid HTML nesting (<div> inside <p>)
+const rehypeUnwrapImages = () => {
+  return (tree: HastRoot) => {
+    const nodesToReplace: Array<{ parent: Element; index: number; replacement: Element }> = [];
+    
+    visit(tree, 'element', (node, index, parent) => {
+      if (node.tagName === 'p' && parent && parent.type === 'element' && typeof index === 'number') {
+        // Check if paragraph only contains an image (and maybe whitespace)
+        const children = node.children || [];
+        const nonWhitespaceChildren = children.filter(child => {
+          if (child.type === 'text') {
+            return typeof child.value === 'string' && child.value.trim() !== '';
+          }
+          return child.type === 'element' && child.tagName === 'img';
+        });
+        
+        // If paragraph only contains a single image, mark it for replacement
+        if (nonWhitespaceChildren.length === 1 && nonWhitespaceChildren[0].type === 'element' && nonWhitespaceChildren[0].tagName === 'img') {
+          const replacement = nonWhitespaceChildren[0] as Element;
+          nodesToReplace.push({
+            parent: parent as Element,
+            index,
+            replacement
+          });
+        }
+      }
+    });
+    
+    // Replace nodes in reverse order to maintain correct indices
+    // Process from end to start to avoid index shifting issues
+    nodesToReplace.reverse().forEach(({ parent, index, replacement }) => {
+      if (parent.children && parent.children[index]) {
+        parent.children[index] = replacement;
       }
     });
   };
@@ -108,6 +154,7 @@ const PostContent = ({ content }: { content: string }) => {
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
     .use(rehypeFilenameToPre)
+    .use(rehypeUnwrapImages)
     // Using `as any` here is a temporary workaround for a complex type
     // inference issue with `unified` and `rehype-react`.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -129,6 +176,11 @@ const PostContent = ({ content }: { content: string }) => {
             const language = langClass.replace(/language-/, '') as BundledLanguage;
             const filename = props['data-meta'] || '';
             const code = getTextContent(child.props.children).trim();
+            
+            // Check if this is a Mermaid diagram
+            if (language === 'mermaid') {
+              return <MermaidDiagram chart={code} />;
+            }
             
             const codeData = [{ language, code, filename }];
 
@@ -176,6 +228,29 @@ const PostContent = ({ content }: { content: string }) => {
             <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-normal">
               {children}
             </code>
+          );
+        },
+        p: (props: { children: React.ReactNode }) => {
+          return <p {...props} />;
+        },
+        img: (props: { src?: string; alt?: string; title?: string }) => {
+          const { src, alt, title } = props;
+          if (!src) return null;
+          
+          // Convert relative paths to absolute paths
+          const imageSrc = src.startsWith('/') ? src : `/${src}`;
+          
+          return (
+            <div className="my-6 flex justify-center">
+              <Image
+                src={imageSrc}
+                alt={alt || ''}
+                width={1200}
+                height={600}
+                className="rounded-lg object-contain max-w-full h-auto"
+                title={title}
+              />
+            </div>
           );
         },
       },

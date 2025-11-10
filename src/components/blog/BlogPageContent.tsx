@@ -10,7 +10,7 @@ interface BlogPageContentProps {
     description: string;
     tags: string[];
     author: string;
-    image: string;
+    image?: string;
   }[];
 }
 

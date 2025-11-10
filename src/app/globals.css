@@ -186,4 +186,58 @@
   .shiki-container pre {
     background-color: transparent !important;
   }
+
+  /* Fix Shiki code block rendering - prevent nested pre/code blocks */
+  .shiki-container code {
+    display: block;
+    padding: 0;
+    background-color: transparent !important;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  .shiki-container code pre {
+    display: none !important;
+  }
+
+  /* Fix bullet point rendering - ensure bullets and text stay on same line */
+  .prose ul,
+  .prose ol {
+    padding-left: 1.5em;
+    list-style-position: outside;
+  }
+
+  .prose ul li,
+  .prose ol li {
+    display: list-item;
+    list-style-position: outside;
+    padding-left: 0.25em;
+    margin-left: 0;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+
+  .prose ul li {
+    list-style-type: disc;
+  }
+
+  .prose ol li {
+    list-style-type: decimal;
+  }
+
+  /* Ensure list items don't break across lines */
+  .prose li {
+    display: list-item;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
+  /* Fix for nested lists */
+  .prose ul ul,
+  .prose ol ol,
+  .prose ul ol,
+  .prose ol ul {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
 }

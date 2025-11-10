@@ -4,9 +4,9 @@ date: '2025-11-09'
 description: "A comprehensive guide to Google ADK's Visual Agent Builder - learn how to create complex multi-agent systems through an intuitive visual interface without writing YAML by hand."
 tags: ["Google ADK", "AI Agents", "Multi-Agent Systems", "Visual Agent Builder"]
 author: "Thomas Chong"
+banner: "/images/blog/blog-google-adk-visual-agent-builder-2025-11-09/06-canvas-generated-hierarchy.png"
+image: "/images/blog/blog-google-adk-visual-agent-builder-2025-11-09/06-canvas-generated-hierarchy.png"
 ---
-
-# Building AI Agents Visually with Google ADK Visual Agent Builder
 
 If you've ever built multi-agent systems, you know the pain: juggling YAML files, mentally tracking agent hierarchies, debugging configuration errors, and constantly referencing documentation to get the syntax right. Google's Agent Development Kit (ADK) just changed that game.
 
@@ -86,7 +86,7 @@ Once the server starts, open `http://localhost:8000/dev-ui/` in your browser. Yo
 
 The Visual Builder interface is divided into three main panels:
 
-![Visual Builder Main Interface](../images/blog/blog-google-adk-visual-agent-builder-2025-11-0901-main-interface.png)
+![Visual Builder Main Interface](images/blog/blog-google-adk-visual-agent-builder-2025-11-09/01-main-interface.png)
 *Screenshot: The Visual Builder interface showing the three main panels - Configuration Editor (left), Agent Canvas (center), and AI Assistant (right)*
 
 ### Left Panel: Configuration Editor
@@ -180,7 +180,7 @@ From the ADK Dev UI landing page:
 4. Enter a name: `research_agent` (must be valid Python identifier)
 5. Click **Create**
 
-![Create New App Dialog](../images/blog/blog-google-adk-visual-agent-builder-2025-11-0902-create-dialog.png)
+![Create New App Dialog](images/blog/blog-google-adk-visual-agent-builder-2025-11-09/02-create-dialog.png)
 *Screenshot: The "Create a new app" dialog for creating a new agent project*
 
 The Visual Builder opens in a new view with `mode=builder` in the URL. You'll see the default configuration for a new LlmAgent.
@@ -191,7 +191,7 @@ Here's where the Visual Builder truly shines. Instead of manually configuring ea
 
 In the AI Assistant panel on the right side, type the following prompt:
 
-![AI Assistant Prompt](../images/blog/blog-google-adk-visual-agent-builder-2025-11-0903-assistant-prompt.png)
+![AI Assistant Prompt](images/blog/blog-google-adk-visual-agent-builder-2025-11-09/03-assistant-prompt.png)
 *Screenshot: Typing a comprehensive natural language prompt to the AI Assistant describing the research agent requirements*
 
 ```
@@ -211,12 +211,12 @@ The architecture should follow ADK best practices with proper agent hierarchy an
 
 The AI Assistant will ask clarifying questions to ensure it understands your requirements:
 
-![AI Assistant Response](../images/blog/blog-google-adk-visual-agent-builder-2025-11-0904-assistant-response-1.png)
+![AI Assistant Response](images/blog/blog-google-adk-visual-agent-builder-2025-11-09/04-assistant-response-1.png)
 *Screenshot: AI Assistant asking for confirmation about model choices before generating the architecture*
 
 After you confirm the details (in this case, specifying model choices for each agent), the AI Assistant will propose a complete architecture:
 
-![AI Assistant Architecture Proposal](../images/blog/blog-google-adk-visual-agent-builder-2025-11-0905-assistant-architecture-proposal.png)
+![AI Assistant Architecture Proposal](images/blog/blog-google-adk-visual-agent-builder-2025-11-09/05-assistant-architecture-proposal.png)
 *Screenshot: AI Assistant proposing a complete 4-file YAML architecture including root agent, loop agent, and two specialized sub-agents with detailed instructions and tool assignments*
 
 The AI Assistant generates:
@@ -246,7 +246,7 @@ Once you approve the proposal, the AI Assistant creates all the agents and updat
 
 After the AI Assistant creates the agents, the visual canvas updates to show your complete multi-agent system:
 
-![Generated Agent Hierarchy](../images/blog/blog-google-adk-visual-agent-builder-2025-11-0906-canvas-generated-hierarchy.png)
+![Generated Agent Hierarchy](images/blog/blog-google-adk-visual-agent-builder-2025-11-09/06-canvas-generated-hierarchy.png)
 *Screenshot: Visual canvas showing the complete agent hierarchy with root agent, loop agent, and two specialized sub-agents, along with tool assignments*
 
 You can see the full hierarchy:
@@ -258,7 +258,7 @@ You can see the full hierarchy:
 
 Click on any agent in the canvas to inspect its configuration. For example, clicking on `research_loop_agent` shows:
 
-![Loop Agent Configuration](../images/blog/blog-google-adk-visual-agent-builder-2025-11-0907-loop-agent-config.png)
+![Loop Agent Configuration](images/blog/blog-google-adk-visual-agent-builder-2025-11-09/07-loop-agent-config.png)
 *Screenshot: LoopAgent configuration panel showing max_iterations set to 3, with exit_loop tool and sub-agent assignments*
 
 Key configuration highlights:
@@ -268,7 +268,7 @@ Key configuration highlights:
 
 Let's examine one of the sub-agents. Click on `query_refinement_agent` in the canvas:
 
-![Query Refinement Agent Configuration](../images/blog/blog-google-adk-visual-agent-builder-2025-11-0908-query-refinement-config.png)
+![Query Refinement Agent Configuration](images/blog/blog-google-adk-visual-agent-builder-2025-11-09/08-query-refinement-config.png)
 *Screenshot: Query refinement agent configuration showing gemini-2.5-pro model selection, google_search tool, and detailed instructions*
 
 Notice how the AI Assistant:
@@ -327,7 +327,7 @@ Type a research query in the chat:
 Research the latest developments in quantum computing error correction in 2024.
 ```
 
-![Test Chat with Results](../images/blog/blog-google-adk-visual-agent-builder-2025-11-0909-test-chat-with-results.png)
+![Test Chat with Results](images/blog/blog-google-adk-visual-agent-builder-2025-11-09/09-test-chat-with-results.png)
 *Screenshot: Complete test execution showing all 3 loop iterations and the final comprehensive research summary about quantum computing error correction*
 
 The agent executes through multiple iterations:
@@ -417,8 +417,3 @@ Have you built anything with the Visual Agent Builder? I'd love to hear about yo
 ### Community
 - [ADK GitHub Discussions](https://github.com/google/adk-python/discussions)
 - [ADK Issues](https://github.com/google/adk-python/issues)
-
----
-
-*Published: 2025-11-09*
-*Author: Thomas*
