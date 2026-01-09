@@ -1,16 +1,11 @@
 ---
 title: "Ralph Loop with Google ADK: AI Agents That Verify, Not Guess"
-date: '2025-01-08'
+date: '2026-01-08'
 description: "Learn the Ralph Loop pattern with Google ADK—an AI agent approach that embraces iterative failure until external verification succeeds. Build a Dockerfile generator that doesn't stop until Docker says it works."
 tags: ["Google ADK", "AI Agents", "Ralph Loop", "Gemini 3", "Docker", "Python"]
 author: "Thomas Chong"
-banner: "/images/blog/blog-ralph-loop-adk-2025-01-08/blog-banner.png"
+banner: "/images/blog/blog-ralph-loop-adk-2026-01-08/blog-banner.png"
 ---
-
-# Ralph Loop with Google ADK: AI Agents That Verify, Not Guess
-
-![Ralph Loop vs Standard Loop](/images/blog/blog-ralph-loop-adk-2025-01-08/blog-banner.png)
-*Ralph Loop: An iterative approach where external verification—not LLM confidence—decides when the task is complete.*
 
 Every developer has experienced this: you ask an AI to write a Dockerfile, it confidently delivers something that *looks* correct, and then `docker build` fails. The AI thought it was done. It wasn't.
 
@@ -30,7 +25,7 @@ In this tutorial, we'll implement Ralph Loop using **Google ADK** that generates
 
 Standard agentic loops work like this:
 
-![The Self-Assessment Trap](/images/blog/blog-ralph-loop-adk-2025-01-08/infographic-self-assessment-flow.png)
+![The Self-Assessment Trap](/images/blog/blog-ralph-loop-adk-2026-01-08/infographic-self-assessment-flow.png)
 *The self-assessment trap: The same model that wrote the code is evaluating it—and may confidently approve broken code.*
 
 But here's the trap: even with Google ADK's `LoopAgent`, you can accidentally create the **same problem** if the LLM decides when to stop.
@@ -63,7 +58,7 @@ verification_agent = Agent(
 
 **The key insight:** In a Ralph Loop, the `exit_loop()` decision is driven by **results from external tools** (Docker build, run, health check), not by the LLM's opinion of its own work.
 
-![Comparison: Self-Assessment Loop vs Ralph Loop](/images/blog/blog-ralph-loop-adk-2025-01-08/infographic-standard-vs-ralph.png)
+![Comparison: Self-Assessment Loop vs Ralph Loop](/images/blog/blog-ralph-loop-adk-2026-01-08/infographic-standard-vs-ralph.png)
 *The key difference: Standard loops let the LLM grade its own work. Ralph Loop uses external tools (like Docker) to verify success objectively.*
 
 Research supports this approach. A [2024 MIT survey on LLM self-correction](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00713/125177/When-Can-LLMs-Actually-Correct-Their-Own-Mistakes) found that self-correction works well **"in tasks that can use reliable external feedback"** but struggles when LLMs must evaluate their own outputs.
@@ -218,7 +213,7 @@ def verify_dockerfile(dockerfile_content: str, tool_context: ToolContext) -> dic
 
 ### The Verification Pipeline
 
-![Docker Verification Pipeline: 5 stages from Lint to Functional](/images/blog/blog-ralph-loop-adk-2025-01-08/infographic-verification-pipeline.png)
+![Docker Verification Pipeline: 5 stages from Lint to Functional](/images/blog/blog-ralph-loop-adk-2026-01-08/infographic-verification-pipeline.png)
 *The 5-stage verification pipeline: Each stage catches different types of errors and provides specific, actionable feedback.*
 
 > **Note:** Stages 1-3 are universal for any Docker deployment. Stages 4-5 are optional and configurable via state, making these tools reusable across different applications.
@@ -233,7 +228,7 @@ Now that we have our verification pipeline, let's design the agent structure. Th
 
 ### The Flow: Why Each Agent Exists
 
-![Agent Architecture: SequentialAgent with DockerfileGenerator and Ralph Loop](/images/blog/blog-ralph-loop-adk-2025-01-08/infographic-agent-architecture.png)
+![Agent Architecture: SequentialAgent with DockerfileGenerator and Ralph Loop](/images/blog/blog-ralph-loop-adk-2026-01-08/infographic-agent-architecture.png)
 *The agent hierarchy: DockerfileGenerator makes one attempt, then the Ralph Loop iterates until Docker verification passes.*
 
 ### Why Three Agents?
@@ -452,12 +447,12 @@ Let's walk through a real execution. The agent will attempt to generate a Docker
 
 Here's what a real run looks like in the ADK Web UI. The first screenshot shows the initial Dockerfile attempt and the first failure:
 
-![Screenshot: ADK Web UI showing initial Dockerfile and first error](/images/blog/blog-ralph-loop-adk-2025-01-08/adk-initial-dockerfile-error.png)
+![Screenshot: ADK Web UI showing initial Dockerfile and first error](/images/blog/blog-ralph-loop-adk-2026-01-08/adk-initial-dockerfile-error.png)
 *ADK Web UI: The initial Dockerfile attempt fails with "APP_SECRET environment variable is required"—the first of several missing requirements.*
 
 Notice the **visible summary messages** showing what's being fixed at each step:
 
-![Screenshot: ADK Web UI showing Ralph Loop with visible iteration fixes](/images/blog/blog-ralph-loop-adk-2025-01-08/adk-iteration-fixes.png)
+![Screenshot: ADK Web UI showing Ralph Loop with visible iteration fixes](/images/blog/blog-ralph-loop-adk-2026-01-08/adk-iteration-fixes.png)
 *Each iteration shows a "🔧 Fixing:" summary before applying the fix, making the refinement process visible and debuggable.*
 
 ### Iteration 1: Initial Attempt (DockerfileGenerator)
@@ -564,7 +559,7 @@ EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-![Screenshot: Final successful Dockerfile with exit_loop in ADK Web UI](/images/blog/blog-ralph-loop-adk-2025-01-08/adk-final-dockerfile-success.png)
+![Screenshot: Final successful Dockerfile with exit_loop in ADK Web UI](/images/blog/blog-ralph-loop-adk-2026-01-08/adk-final-dockerfile-success.png)
 *Success! After 6 iterations, all verification stages pass and the VerificationChecker calls exit_loop() to complete the task.*
 
 ---
