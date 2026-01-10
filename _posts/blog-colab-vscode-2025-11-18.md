@@ -1,7 +1,7 @@
 ---
 title: "Google Colab Comes to VS Code: Complete Setup Guide and Real-World Review"
 author: "Thomas Chong"
-date: "2025-11-18"
+date: "2025-11-18T12:00:00"
 tags: ["Google Colab", "VS Code", "Jupyter Notebooks", "AI", "Development Tools", "IDE Integration"]
 description: "Learn how to install and use the new Google Colab VS Code extension. Complete setup guide with real-world benefits, limitations, and practical tips for seamless cloud compute integration."
 banner: "/images/blog/blog-colab-vscode-2025-11-18/blog-banner.png"
